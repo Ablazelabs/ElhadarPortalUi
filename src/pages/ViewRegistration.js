@@ -11,6 +11,7 @@ const ViewRegistration = () => {
     const [prevDisabled, setPrevDisabled] = useState(false);
     const [nextDisabled, setNextDisabled] = useState(false);
     const [checkedIds, setCheckedIds] = useState([]);
+    const [refresh, setRefresh] = useState(false);
     const rowsPerPage = ({ target }) => {
         const { value } = target;
         if (value < 1 || value > 50) {
@@ -24,11 +25,11 @@ const ViewRegistration = () => {
         setPrevDisabled(false);
     };
     const prev = () => {
+        setNextDisabled(false);
         if (skip === 0) {
             setPrevDisabled(true);
             return;
         }
-        setNextDisabled(false);
         const tempSkip = skip - limit;
         setSkip(tempSkip < 0 ? 0 : tempSkip);
     };
@@ -45,7 +46,7 @@ const ViewRegistration = () => {
             const { data: resJson } = data;
             if (resJson.length === 0) {
                 setNextDisabled(true);
-                setSkip(skip - 1);
+                setSkip(skip - limit);
                 return;
             }
             const tableDataFromHere = resJson.map(
@@ -164,8 +165,12 @@ const ViewRegistration = () => {
                 }
             } catch {}
         };
+
         fetchData();
-    }, [limit, skip, checkedIds]);
+        setInterval(() => {
+            setRefresh(!refresh);
+        }, 600000);
+    }, [limit, skip, checkedIds, refresh]);
     return (
         <div id="headDiv">
             <table id="specialTable">

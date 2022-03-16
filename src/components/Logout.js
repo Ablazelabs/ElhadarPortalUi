@@ -24,7 +24,7 @@ const Logout = () => {
             }}
         >
             <ListItemIcon>
-                <LogoutIcon />
+                <LogoutIcon sx={{ color: "white" }} />
             </ListItemIcon>
             <ListItemText primary={"logout"} />
         </ListItem>

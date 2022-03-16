@@ -1,9 +1,8 @@
 import MainLayout from "./layouts/MainLayout";
 import PreviewIcon from "@mui/icons-material/Preview";
 import { Routes, Route } from "react-router-dom";
-import ViewRegistration from "./components/ViewRegistration";
+import ViewRegistration from "./pages/ViewRegistration";
 import PersonAddAltIcon from "@mui/icons-material/PersonAddAlt";
-import LoginIcon from "@mui/icons-material/Login";
 import AddUser from "./pages/AddUser";
 import Login from "./pages/Login";
 import { useNavigate, useLocation } from "react-router";
@@ -16,11 +15,11 @@ function App() {
     };
     const loggedInList = [
         {
-            name: "View Data",
+            name: "Customer Requests",
             onClick: () => {
                 navigate("/");
             },
-            icon: <PreviewIcon />,
+            icon: <PreviewIcon sx={{ color: "white" }} />,
             path: "/",
             element: <ViewRegistration />,
         },
@@ -29,49 +28,29 @@ function App() {
             onClick: () => {
                 navigate("/add-user");
             },
-            icon: <PersonAddAltIcon />,
+            icon: <PersonAddAltIcon sx={{ color: "white" }} />,
             path: "/add-user",
             element: <AddUser />,
         },
     ];
-    const nonLoggedInList = [
-        {
-            name: "Login",
-            onClick: () => {
-                console.log("main");
-            },
-            icon: <LoginIcon />,
-        },
-    ];
-    const nonLoggedInSelected = 0;
     const loggedInSelected = loggedInList.findIndex(
         ({ path }) => path === location.pathname
     );
     // location.pathname === "/" ? 0 : 1;
-    return (
+    return isAnyUserLoggedIn() ? (
         <MainLayout
-            selectedIndex={
-                isAnyUserLoggedIn() ? loggedInSelected : nonLoggedInSelected
-            }
-            list={isAnyUserLoggedIn() ? loggedInList : nonLoggedInList}
-            logout={isAnyUserLoggedIn()}
+            selectedIndex={loggedInSelected}
+            list={loggedInList}
+            logout={true}
         >
             <Routes>
-                {isAnyUserLoggedIn() ? (
-                    <>
-                        {loggedInList.map(({ path, element }, index) => (
-                            <Route
-                                path={path}
-                                element={element}
-                                key={index}
-                            ></Route>
-                        ))}
-                    </>
-                ) : (
-                    <Route path="/*" element={<Login />}></Route>
-                )}
+                {loggedInList.map(({ path, element }, index) => (
+                    <Route path={path} element={element} key={index}></Route>
+                ))}
             </Routes>
         </MainLayout>
+    ) : (
+        <Login />
     );
 }
 

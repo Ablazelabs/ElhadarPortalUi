@@ -17,6 +17,7 @@ import ListItem from "@mui/material/ListItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import Logout from "../components/Logout";
+import Logo from "../components/Logo";
 function Copyright(props) {
     return (
         <Typography
@@ -41,6 +42,8 @@ const AppBar = styled(MuiAppBar, {
     shouldForwardProp: (prop) => prop !== "open",
 })(({ theme, open }) => ({
     zIndex: theme.zIndex.drawer + 1,
+    backgroundColor: "#3D424A",
+    color: "white",
     transition: theme.transitions.create(["width", "margin"], {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
@@ -66,6 +69,8 @@ const Drawer = styled(MuiDrawer, {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.enteringScreen,
         }),
+        backgroundColor: "#3D424A",
+        color: "white",
         boxSizing: "border-box",
         ...(!open && {
             overflowX: "hidden",
@@ -93,6 +98,9 @@ const MainLayout = ({ list, selectedIndex, children, logout }) => {
             button
             onClick={onClick}
             selected={selectedIndex === index}
+            style={{
+                backgroundColor: selectedIndex === index ? "#1976D2" : "",
+            }}
             key={index}
         >
             <ListItemIcon>{icon}</ListItemIcon>
@@ -128,7 +136,7 @@ const MainLayout = ({ list, selectedIndex, children, logout }) => {
                             noWrap
                             sx={{ flexGrow: 1 }}
                         >
-                            Portal
+                            Elhadar
                         </Typography>
                     </Toolbar>
                 </AppBar>
@@ -149,8 +157,12 @@ const MainLayout = ({ list, selectedIndex, children, logout }) => {
                             px: [1],
                         }}
                     >
-                        <IconButton onClick={toggleDrawer}>
-                            <ChevronLeftIcon />
+                        <Logo height={70} />
+                        <IconButton
+                            onClick={toggleDrawer}
+                            style={{ marginLeft: 50 }}
+                        >
+                            <ChevronLeftIcon sx={{ color: "white" }} />
                         </IconButton>
                     </Toolbar>
                     <Divider />
