@@ -6,7 +6,8 @@ const headers = {
     "content-type": "application/json",
     Authorization: `bearer ${localStorage.getItem("accessToken")}`,
 };
-const baseURL = "http://localhost:2222/api";
+// const baseURL = "http://localhost:2222/api";
+const baseURL = "https://localhost:2222/api";
 const refreshURL = "/refresh-token";
 const axiosInstance = axios.create({
     baseURL,

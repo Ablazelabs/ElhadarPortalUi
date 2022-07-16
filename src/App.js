@@ -36,8 +36,10 @@ function App() {
     const loggedInSelected = loggedInList.findIndex(
         ({ path }) => path === location.pathname
     );
+    console.log({ isaaaa: isAnyUserLoggedIn() });
     // location.pathname === "/" ? 0 : 1;
-    return isAnyUserLoggedIn() ? (
+    return <div>Hello world</div>;
+    isAnyUserLoggedIn() ? (
         <MainLayout
             selectedIndex={loggedInSelected}
             list={loggedInList}
